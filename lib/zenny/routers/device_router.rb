@@ -18,8 +18,6 @@
 # with zenoss_client.  If not, see <http://www.gnu.org/licenses/>.
 #############################################################################
 
-require 'zenny/models/device'
-
 module Zenny
   module Routers
     module DeviceRouter
