@@ -45,30 +45,32 @@ module Zenny
         json_request('DeviceRouter', 'getDevices', [data])
       end
       
-      def get_component_tree(uid)
-        data = { :uid => uid }
-        resp = json_request('DeviceRouter', 'getComponentTree', [data])
+      def get_component_tree(device_id)
+        json_request('DeviceRouter', 'getComponentTree', [{:uid => device_id}])
       end
 
       def get_templates(device_id)
-        resp = json_request('DeviceRouter', 'getTemplates', [{:id => device_id}])
+        json_request('DeviceRouter', 'getTemplates', [{:uid => device_id}])
+      end
+      
+      def get_components(device_id, opts = {})
+        data = { :uid => device_id }
+        data[:meta_type]  = opts[:meta_type] if opts.has_key? :meta_type
+        data[:keys]       = opts[:keys] if opts.has_key? :keys
+        data[:start]      = opts[:start] if opts.has_key? :start
+        data[:limit]      = opts[:limit] if opts.has_key? :limit
+        data[:sort]       = opts[:sort_key] if opts.has_key? :sort_key
+        data[:dir]        = opts[:sort_ord] if opts.has_key? :sort_ord
+        data[:name]       = opts[:name] if opts.has_key? :name
+
+        json_request('DeviceRouter', 'getComponents', [data])
       end
 
       def get_info(device_id, keys = nil)
         data = {}
         data[:uid]  = device_id
         data[:keys] = keys if keys
-        resp = json_request('DeviceRouter', 'getInfo', [data])
-      end
-
-      def get_components(uid, keys, opts = {})
-        data = { :uid => uid }
-        data[:keys]   = keys
-        data[:start]  = opts[:start] if opts.has_key? :start
-        data[:limit]  = opts[:limit] if opts.has_key? :limit
-        data[:sort]   = opts[:sort_key] if opts.has_key? :sort_key
-        data[:dir]    = opts[:sort_ord] if opts.has_key? :sort_ord
-        resp = json_request('DeviceRouter', 'getComponents', [data])
+        json_request('DeviceRouter', 'getInfo', [data])
       end
       
       # =============== Non-API Helper methods ===============
