@@ -4,6 +4,7 @@ module Zenny
       path = "/zport/dmd/#{path}" unless path.start_with?('/zport/dmd')
 
       req_url = "#{@zenoss_uri}#{path}"
+
       req_headers = {'Content-type' => 'application/json; charset=utf-8'}
       req_body = MultiJson.encode [{
         :action => router,
@@ -12,9 +13,6 @@ module Zenny
         :type   => 'rpc',
         :tid    => @request_number,
       }]
-      
-      puts req_url
-      puts req_body
 
       @request_number += 1
 
@@ -30,10 +28,12 @@ module Zenny
         if(resp.status != 200)
           raise ZenossError, "Bad HTTP Response #{resp.status}: Cound not make JSON call"
         end
-
-
         
         json = MultiJson.decode(resp.http_body.content)
+        
+        puts resp.http_body.content
+        puts json.inspect
+        
         # Check for JSON success. There are some exceptions where this doesn't make sense:
         #   1. Sometimes the 'success' key does not exist like in EventsRouter#query
         #   2. When json['result'] is not a Hash like a return from ReportRouter#get_tree

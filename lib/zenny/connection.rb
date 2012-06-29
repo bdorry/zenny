@@ -1,5 +1,6 @@
 require 'zenny/jsonapi'
 require 'zenny/routers/device_router'
+require 'zenny/routers/events_router'
 
 module Zenny
 
@@ -7,7 +8,8 @@ module Zenny
   class Connection
     include Zenny::JSONAPI
     include Zenny::Routers::DeviceRouter
-
+    include Zenny::Routers::EventsRouter
+    
     def initialize(url, user, pass, &block)
       @zenoss_uri = (url.is_a?(URI) ? url : URI.parse(url))
       @request_number = 1

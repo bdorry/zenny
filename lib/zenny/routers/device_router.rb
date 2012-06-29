@@ -46,7 +46,8 @@ module Zenny
         opts[:ipAddress] = ip
         get_devices('/zport/dmd/Devices', :params => opts)
       end
+    
+    end
+  end
+end
 
-    end # DeviceRouter
-  end # JSONAPI
-end # Zenny
