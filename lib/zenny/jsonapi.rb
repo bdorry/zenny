@@ -1,27 +1,9 @@
-#############################################################################
-# Copyright © 2010 Dan Wanek <dwanek@nd.gov>
-#
-#
-# This file is part of zenoss_client.
-# 
-# zenoss_client is free software: you can redistribute it and/or
-# modify it under the terms of the GNU General Public License as published
-# by the Free Software Foundation, either version 3 of the License, or (at
-# your option) any later version.
-# 
-# zenoss_client is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General
-# Public License for more details.
-# 
-# You should have received a copy of the GNU General Public License along
-# with zenoss_client.  If not, see <http://www.gnu.org/licenses/>.
-#############################################################################
-
 module Zenny
   module JSONAPI
-    def json_request(router, method, data={})
-      req_url = "#{@zenoss_uri}/zport/dmd/#{Zenny.router_path(router)}"
+    def json_request(router, path, method, data={})
+      path = "/zport/dmd/#{path}" unless path.start_with?('/zport/dmd')
+
+      req_url = "#{@zenoss_uri}#{path}"
       req_headers = {'Content-type' => 'application/json; charset=utf-8'}
       req_body = MultiJson.encode [{
         :action => router,
@@ -30,6 +12,9 @@ module Zenny
         :type   => 'rpc',
         :tid    => @request_number,
       }]
+      
+      puts req_url
+      puts req_body
 
       @request_number += 1
 
