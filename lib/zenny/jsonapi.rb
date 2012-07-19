@@ -25,14 +25,13 @@ module Zenny
     # Check the HTTP and JSON response for errors and return JSON response
     def parse_json(resp)
       #begin
+        puts resp.http_body.content
+      
         if(resp.status != 200)
           raise ZenossError, "Bad HTTP Response #{resp.status}: Cound not make JSON call"
         end
         
         json = MultiJson.decode(resp.http_body.content)
-        
-        puts resp.http_body.content
-        puts json.inspect
         
         # Check for JSON success. There are some exceptions where this doesn't make sense:
         #   1. Sometimes the 'success' key does not exist like in EventsRouter#query
