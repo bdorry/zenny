@@ -25,8 +25,6 @@ module Zenny
     # Check the HTTP and JSON response for errors and return JSON response
     def parse_json(resp)
       begin
-        puts resp.http_body.content
-      
         if(resp.status != 200)
           raise ZenossError, "Bad HTTP Response #{resp.status}: Cound not make JSON call"
         end
