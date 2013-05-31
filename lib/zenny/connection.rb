@@ -34,7 +34,7 @@ module Zenny
       if(resp.status == 302)
         login_path = resp.header['Location'].first
         resp = @httpcli.post login_path, login_parms 
-        raise ZennyError, "(HTTP Response #{resp.status}) Could not authenticate to #{@zenoss_uri}" unless resp.status == 200
+        raise Zenny::ZenossError, "(HTTP Response #{resp.status}) Could not authenticate to #{@zenoss_uri}" unless resp.status == 200
       end
       true
     end
