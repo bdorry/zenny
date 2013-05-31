@@ -1,6 +1,6 @@
 Gem::Specification.new do |gem|
   gem.name = "zenny"
-  gem.version = File.open('VERSION').readline.chomp
+  gem.version = '0.0.1'
   gem.date		= Date.today.to_s
   gem.platform = Gem::Platform::RUBY
   gem.rubyforge_project  = nil
