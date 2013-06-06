@@ -1,6 +1,7 @@
 require 'zenny/jsonapi'
 require 'zenny/routers/device_router'
 require 'zenny/routers/events_router'
+require 'zenny/routers/sshkey_uploader_router'
 
 module Zenny
 
@@ -9,6 +10,7 @@ module Zenny
     include Zenny::JSONAPI
     include Zenny::Routers::DeviceRouter
     include Zenny::Routers::EventsRouter
+    include Zenny::Routers::SSHKeyUploaderRouter
     
     def initialize(url, user, pass, &block)
       @zenoss_uri = (url.is_a?(URI) ? url : URI.parse(url))
