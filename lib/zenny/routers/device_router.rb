@@ -2,6 +2,15 @@ module Zenny
   module Routers
     module DeviceRouter
 
+      def add_node(uid, context_uid, opts={})
+        json_request('DeviceRouter', 'device_router', 'addNode', [{
+          :id => uid,
+          :description => opts[:description] || '',
+          :type => opts[:type] || 'organizer',
+          :contextUid => context_uid
+        }])
+      end
+
       def get_devices(uid, opts = {})
         data = { :uid => uid }
         data[:start]  = opts[:start] if opts.has_key? :start
