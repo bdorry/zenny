@@ -34,8 +34,8 @@ module Zenny
       login_path = "#{@zenoss_uri}/zport/acl_users/cookieAuthHelper/login"
       resp = @httpcli.post login_path, login_parms
       if(resp.status == 302)
-        login_path = resp.header['Location'].first
-        resp = @httpcli.post login_path, login_parms 
+        login_path = "#{@zenoss_uri}#{resp.header['Location'].first}"
+        resp = @httpcli.post login_path, login_parms
         raise Zenny::ZenossError, "(HTTP Response #{resp.status}) Could not authenticate to #{@zenoss_uri}" unless resp.status == 200
       end
       true
