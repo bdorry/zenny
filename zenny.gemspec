@@ -1,7 +1,7 @@
 Gem::Specification.new do |gem|
   gem.name = "zenny"
   gem.version = '0.0.3'
-  gem.date		= Date.today.to_s
+  gem.date		= '2014-07-11'
   gem.platform = Gem::Platform::RUBY
   gem.rubyforge_project  = nil
 
